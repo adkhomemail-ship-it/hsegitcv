@@ -18,6 +18,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{url}
 \usepackage{float}
+\usepackage{ifthen}
 
 \frenchspacing
 \pagestyle{empty}
@@ -56,7 +57,7 @@
 
 \newcommand{\workEntry}[5]{
     \begin{minipage}{0.08\linewidth}
-        \includegraphics[width=1.2cm]{#5}
+        \ifthenelse{\equal{#5}{}}{}{\includegraphics[width=1.2cm]{#5}}
     \end{minipage}%
     \begin{minipage}{0.84\linewidth}
         \noindent{\color{subheadings}\bfseries #1},
