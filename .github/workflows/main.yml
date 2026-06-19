@@ -1,0 +1,30 @@
+name: Build CV PDF
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-cv:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t hsegitcv .
+
+      - name: Run Docker container
+        run: docker run --name hsegitcv-container hsegitcv
+
+      - name: Copy PDF from container
+        run: docker cp hsegitcv-container:/app/CV/main.pdf ./main.pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdf
+          path: main.pdf
